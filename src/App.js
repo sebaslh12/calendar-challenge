@@ -7,11 +7,6 @@ import './App.css';
 function App() {
 	return (
 		<Provider store={store}>
-			<div className="App">
-				<header className="App-header">
-					<h1>Calendar</h1>
-				</header>
-			</div>
 			<Calendar />
 		</Provider>
 	);

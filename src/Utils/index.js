@@ -24,7 +24,7 @@ export const days = [
 	'Sun',
 	'Mon',
 	'Tue',
-	'Weds',
+	'Wed',
 	'Thu',
 	'Fri',
 	'Sat'
