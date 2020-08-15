@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Modal from '../Modal';
 import { addReminder } from '../../store/actions/reminders';
 import { connect } from 'react-redux';
+import InputColor from 'react-input-color';
 
 const ReminderModal = ({ isOpen, onClose, addReminder, dayData }) => {
+	const [color, setColor] = useState({});
 	const [values, setValues] = useState({
 		name: '',
 		city: '',
@@ -20,7 +22,7 @@ const ReminderModal = ({ isOpen, onClose, addReminder, dayData }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-		addReminder(values);
+		addReminder({ ...values, color: color.hex });
 		onClose();
 	}
 
@@ -39,6 +41,14 @@ const ReminderModal = ({ isOpen, onClose, addReminder, dayData }) => {
 				<label>
 					Hour
 					<input type="time" name="time" value={values.title} onChange={handleChange} placeholder="Hour" required />
+				</label>
+				<label>
+					Color:
+					<InputColor
+						initialValue="#5e72e4"
+						placement="right"
+						onChange={setColor}
+					/>
 				</label>
 				<button type="submit">Save</button>
 			</form>

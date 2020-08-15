@@ -5,6 +5,7 @@ const Reminder = ({ reminder }) => {
 		<div>
 			<p>{reminder.name}</p>
 			<p>{reminder.time}</p>
+			<p>{reminder.color}</p>
 		</div>
 	);
 }
