@@ -11,7 +11,8 @@ export const reminders = (state = initialState, action) => {
 			return state.filter(REMINDER => REMINDER.id !== action.payload.id);
 		case UPDATE_REMINDER:
 			const reminderIndex = state.findIndex(reminder => reminder.id === action.payload.id);
-			const newState = state.slice(reminderIndex);
+			const newState = state.slice()
+			newState.splice(reminderIndex, 1);
 			return [...newState, action.payload];
 		default:
 			return state;

@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import Modal from '../Modal';
-import { addReminder } from '../../store/actions/reminders';
 import { connect } from 'react-redux';
 import InputColor from 'react-input-color';
+import { v4 as uuidv4 } from 'uuid';
+import { addReminder, updateReminder } from '../../store/actions/reminders';
 import { forecast } from '../../Utils';
+import dayjs from 'dayjs';
 
-const ReminderModal = ({ isOpen, onClose, addReminder, dayData }) => {
+const ReminderModal = ({ isOpen, onClose, addReminder, dayData, reminder, updateReminder }) => {
 	const [color, setColor] = useState({});
 	const [values, setValues] = useState({
-		name: '',
-		city: '',
-		time: '',
-		date: dayData.date(),
-		month: dayData.month()
+		id: reminder ? reminder.id : uuidv4(),
+		name: reminder ? reminder.name : '',
+		city: reminder ? reminder.city : '',
+		time: reminder ? reminder.time : '',
+		date: reminder ? reminder.date : dayData.date(),
+		month: reminder ? reminder.month : dayData.month(),
+		color: reminder ? reminder.color : '#5e72e4'
 	});
 
 	const handleChange = (e) => {
@@ -23,8 +27,14 @@ const ReminderModal = ({ isOpen, onClose, addReminder, dayData }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-		const weather = await forecast(values.city, dayData)
-		addReminder({ ...values, color: color.hex, weather });
+		let weather;
+		if (reminder && reminder.id) {
+			weather = reminder.city === values.city ? reminder.weather : await forecast(values.city, dayjs().month(reminder.month).date(reminder.date));
+			updateReminder({ ...values, color: color.hex, weather })
+		} else {
+			weather = await forecast(values.city, dayData);
+			addReminder({ ...values, color: color.hex, weather });
+		}
 		onClose();
 	}
 
@@ -34,11 +44,11 @@ const ReminderModal = ({ isOpen, onClose, addReminder, dayData }) => {
 				<h4>Create Reminder</h4>
 				<label>
 					Name
-					<input type="text" name="name" value={values.title} onChange={handleChange} placeholder="Reminder Name" maxLength="30" required />
+					<input type="text" name="name" value={values.name} onChange={handleChange} placeholder="Reminder Name" maxLength="30" required />
 				</label>
 				<label>
 					City
-					<select name="city" onChange={handleChange} required>
+					<select name="city" onChange={handleChange} required value={values.city}>
 						<option value="" defaultValue>Select a city</option>
 						<option value="4.707823,74.080350">Bogotá</option>
 						<option value="3.418170,-76.523839">Cali</option>
@@ -53,12 +63,12 @@ const ReminderModal = ({ isOpen, onClose, addReminder, dayData }) => {
 				</label>
 				<label>
 					Hour
-					<input type="time" name="time" value={values.title} onChange={handleChange} placeholder="Hour" required />
+					<input type="time" name="time" value={values.time} onChange={handleChange} placeholder="Hour" required />
 				</label>
 				<label>
 					Color:
 					<InputColor
-						initialValue="#5e72e4"
+						initialValue={values.color}
 						placement="right"
 						onChange={setColor}
 					/>
@@ -70,7 +80,8 @@ const ReminderModal = ({ isOpen, onClose, addReminder, dayData }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-	addReminder: reminder => dispatch(addReminder(reminder))
+	addReminder: reminder => dispatch(addReminder(reminder)),
+	updateReminder: reminder => dispatch(updateReminder(reminder))
 });
 
 export default connect(null, mapDispatchToProps)(ReminderModal);
