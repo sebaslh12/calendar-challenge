@@ -22,7 +22,6 @@
 .day.disabled {
 	color: #dedede;
 	cursor: not-allowed;
-	;
 }
 
 .reminders-container {
@@ -50,4 +49,8 @@
 	vertical-align: bottom;
 	white-space: nowrap;
 	width: 6rem;
+}
+
+.reminders-modal {
+	margin-top: 3rem;
 }
