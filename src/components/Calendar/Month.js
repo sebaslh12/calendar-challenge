@@ -18,14 +18,14 @@ const daysOfNextMonth = (finalDay) => {
 		const dayOfNextMonth = dayjs(finalDay).add(daysAfter, 'day');
 		weekAfter.push(dayOfNextMonth);
 	}
-	return weekAfter
+	return weekAfter;
 }
 
 const daysOfCurrentMonth = (daysOfMonth, currentMonth) => {
-	const month = []
+	const month = [];
 	for (let day = 1; day <= daysOfMonth; day++) {
 		const currentDay = dayjs().month(currentMonth).date(day);
-		month.push(currentDay)
+		month.push(currentDay);
 	}
 	return month;
 }

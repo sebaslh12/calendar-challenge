@@ -13,7 +13,9 @@ const Day = ({ dayData, currentMonth, reminders }) => {
 	return (
 		<div className={`day${!isActive ? ' disabled' : ''}`} onClick={toggleModal}>
 			<h3>{dayData.date()}</h3>
-			{remindersOfThisDay.map((reminder, index) => <Reminder key={index} reminder={reminder} />)}
+			<div className="reminders-container">
+				{remindersOfThisDay.map((reminder, index) => <Reminder key={index} reminder={reminder} />)}
+			</div>
 			{showModal && <ReminderModal isOpen={showModal} onClose={toggleModal} dayData={dayData} />}
 		</div>
 	);
