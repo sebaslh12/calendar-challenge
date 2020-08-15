@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import ReminderModal from '../Reminder/ReminderModal';
 import { connect } from 'react-redux';
 import Reminder from '../Reminder';
+import dayjs from 'dayjs';
 
 const Day = ({ dayData, currentMonth, reminders }) => {
 	const remindersOfThisDay = reminders.filter(reminder => reminder.date === dayData.date() && reminder.month === dayData.month());
-	const isActive = dayData.month() === currentMonth;
+	const isActive = (dayData.month() === currentMonth) && (dayData.date() >= dayjs().date());
 	const [showModal, setShowModal] = useState(false);
 	const toggleModal = () => { if (isActive) setShowModal(!showModal) };
 
