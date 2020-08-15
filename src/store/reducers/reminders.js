@@ -8,7 +8,7 @@ export const reminders = (state = initialState, action) => {
 		case ADD_REMINDER:
 			return [...state, action.payload];
 		case DELETE_REMINDER:
-			return state.filter(REMINDER => REMINDER.id !== action.payload.id);
+			return state.filter(reminder => reminder.id !== action.payload.id);
 		case UPDATE_REMINDER:
 			const reminderIndex = state.findIndex(reminder => reminder.id === action.payload.id);
 			const newState = state.slice()

@@ -3,11 +3,11 @@ import Modal from '../Modal';
 import { connect } from 'react-redux';
 import InputColor from 'react-input-color';
 import { v4 as uuidv4 } from 'uuid';
-import { addReminder, updateReminder } from '../../store/actions/reminders';
+import { addReminder, updateReminder, deleteReminder } from '../../store/actions/reminders';
 import { forecast } from '../../Utils';
 import dayjs from 'dayjs';
 
-const ReminderModal = ({ isOpen, onClose, addReminder, dayData, reminder, updateReminder }) => {
+const ReminderModal = ({ isOpen, onClose, dayData, reminder, addReminder, updateReminder, deleteReminder }) => {
 	const [color, setColor] = useState({});
 	const [values, setValues] = useState({
 		id: reminder ? reminder.id : uuidv4(),
@@ -24,6 +24,13 @@ const ReminderModal = ({ isOpen, onClose, addReminder, dayData, reminder, update
 		setValues({ ...values, [name]: value });
 	};
 
+	const handleDelete = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+		const hasConfirm = window.confirm("This action cannot be undone");
+		if(hasConfirm) deleteReminder(reminder);
+	}
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -38,10 +45,12 @@ const ReminderModal = ({ isOpen, onClose, addReminder, dayData, reminder, update
 		onClose();
 	}
 
+	const modalAction = `${reminder ? 'Update' : 'Create'}`;
+
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
-				<h4>Create Reminder</h4>
+				<h3>{modalAction} Reminder</h3>
 				<label>
 					Name
 					<input type="text" name="name" value={values.name} onChange={handleChange} placeholder="Reminder Name" maxLength="30" required />
@@ -73,7 +82,8 @@ const ReminderModal = ({ isOpen, onClose, addReminder, dayData, reminder, update
 						onChange={setColor}
 					/>
 				</label>
-				<button type="submit">Save</button>
+				<button type="submit">{modalAction}</button>
+				{reminder && <button type="button" onClick={handleDelete}>Delete</button>}
 			</form>
 		</Modal>
 	);
@@ -81,7 +91,8 @@ const ReminderModal = ({ isOpen, onClose, addReminder, dayData, reminder, update
 
 const mapDispatchToProps = dispatch => ({
 	addReminder: reminder => dispatch(addReminder(reminder)),
-	updateReminder: reminder => dispatch(updateReminder(reminder))
+	updateReminder: reminder => dispatch(updateReminder(reminder)),
+	deleteReminder: reminder => dispatch(deleteReminder(reminder))
 });
 
 export default connect(null, mapDispatchToProps)(ReminderModal);
