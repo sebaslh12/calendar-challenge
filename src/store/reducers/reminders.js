@@ -1,4 +1,4 @@
-import { ADD_REMINDER, UPDATE_REMINDER, DELETE_REMINDER } from '../../constants';
+import { ADD_REMINDER, UPDATE_REMINDER, DELETE_REMINDER } from '../../Utils';
 
 // Get from localstorage, if first time then there are no reminders
 const initialState = [];
