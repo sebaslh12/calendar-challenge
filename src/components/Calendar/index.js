@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import Month from './Month';
+import './styles.css';
 
 const Calendar = () => {
 	// This will update the view if the month changes

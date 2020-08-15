@@ -1,11 +1,12 @@
 import React from 'react';
 import dayjs from 'dayjs';
+import Day from './Day';
 
 const daysOfPastMonth = (dayOfWeek, startingDay) => {
 	const weekBefore = [];
 	for (let daysBefore = 0; daysBefore < dayOfWeek; daysBefore++) {
 		const dayOfPreviousMonth = dayjs(startingDay).day(dayOfWeek).subtract(dayOfWeek - daysBefore, 'day');
-		weekBefore.push(dayOfPreviousMonth.date());
+		weekBefore.push(dayOfPreviousMonth);
 	}
 	return weekBefore;
 }
@@ -15,7 +16,7 @@ const daysOfNextMonth = (finalDay) => {
 	const weekAfter = [];
 	for (let daysAfter = finalDayOfWeek; daysAfter < 6; daysAfter++) {
 		const dayOfNextMonth = dayjs(finalDay).add(daysAfter, 'day');
-		weekAfter.push(dayOfNextMonth.date());
+		weekAfter.push(dayOfNextMonth);
 	}
 	return weekAfter
 }
@@ -23,8 +24,8 @@ const daysOfNextMonth = (finalDay) => {
 const daysOfCurrentMonth = (daysOfMonth, currentMonth) => {
 	const month = []
 	for (let day = 1; day <= daysOfMonth; day++) {
-		//const currentDay = dayjs().month(currentMonth).date(day);
-		month.push(day)
+		const currentDay = dayjs().month(currentMonth).date(day);
+		month.push(currentDay)
 	}
 	return month;
 }
@@ -32,14 +33,16 @@ const daysOfCurrentMonth = (daysOfMonth, currentMonth) => {
 const Month = ({ month }) => {
 	const startingDay = dayjs().month(month.currentMonth).date(1);
 	const pastMonth = daysOfPastMonth(month.startingDayOfWeek, startingDay)
-	const currentMonth = daysOfCurrentMonth(month.daysOfMonth);
+	const currentMonth = daysOfCurrentMonth(month.daysOfMonth, month.currentMonth);
 	const nextMonth = daysOfNextMonth(dayjs().month(month.currentMonth).date(month.daysOfMonth));
 	const renderDays = [...pastMonth, ...currentMonth, ...nextMonth];
 
 	return (
 		<div>
 			<h1>Month</h1>
-			{renderDays.map((day, index) => <span key={index}> {day} </span>)}
+			<div className="days-container">
+				{renderDays.map((day, index) => <Day key={index} dayData={day} currentMonth={month.currentMonth} />)}
+			</div>
 		</div>
 	);
 }
