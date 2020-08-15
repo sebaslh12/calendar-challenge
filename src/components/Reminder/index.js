@@ -1,14 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-const Reminder = ({ reminders }) => {
+const Reminder = ({ reminder }) => {
 	return (
-		<p>{reminders[0]?.name}</p>
+		<div>
+			<p>{reminder.name}</p>
+			<p>{reminder.time}</p>
+		</div>
 	);
 }
 
-const mapStateToProps = state => ({
-	reminders: state.reminders,
-});
-
-export default connect(mapStateToProps)(Reminder);
+export default Reminder;
