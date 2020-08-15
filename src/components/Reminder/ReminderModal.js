@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import Modal from '../Modal';
+import { addReminder } from '../../store/actions/reminders';
+import { connect } from 'react-redux';
 
-const ReminderModal = ({ isOpen, onClose }) => {
+const ReminderModal = ({ isOpen, onClose, addReminder, dayData }) => {
 	const [values, setValues] = useState({
 		name: '',
 		city: '',
-		time: ''
+		time: '',
+		date: dayData.date(),
+		month: dayData.month()
 	});
 
 	const handleChange = (e) => {
@@ -16,24 +20,25 @@ const ReminderModal = ({ isOpen, onClose }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
+		addReminder(values);
 		onClose();
 	}
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
-			<form onSubmit={handleSubmit} onClick={(e)=>e.stopPropagation()}>
+			<form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
 				<h4>Create Reminder</h4>
 				<label>
 					Name
-					<input type="text" name="name" value={values.title} onChange={handleChange} placeholder="Reminder Name" required/>
+					<input type="text" name="name" value={values.title} onChange={handleChange} placeholder="Reminder Name" maxLength="30" required />
 				</label>
 				<label>
 					City
-					<input type="text" name="city" value={values.title} onChange={handleChange} placeholder="Reminder city" required/>
+					<input type="text" name="city" value={values.title} onChange={handleChange} placeholder="Reminder city" required />
 				</label>
 				<label>
 					Hour
-					<input type="time" name="time" value={values.title} onChange={handleChange} placeholder="Hour" required/>
+					<input type="time" name="time" value={values.title} onChange={handleChange} placeholder="Hour" required />
 				</label>
 				<button type="submit">Save</button>
 			</form>
@@ -41,4 +46,8 @@ const ReminderModal = ({ isOpen, onClose }) => {
 	);
 }
 
-export default ReminderModal;
+const mapDispatchToProps = dispatch => ({
+	addReminder: reminder => dispatch(addReminder(reminder))
+});
+
+export default connect(null, mapDispatchToProps)(ReminderModal);

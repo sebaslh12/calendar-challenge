@@ -1,7 +1,7 @@
 import { ADD_REMINDER, UPDATE_REMINDER, DELETE_REMINDER } from '../../constants';
 
 // Get from localstorage, if first time then there are no reminders
-const initialState = localStorage.getItem('reminders') ? localStorage.getItem('reminders') : [{ name: "I'm from state" }];
+const initialState = [];
 
 export const reminders = (state = initialState, action) => {
 	switch (action.type) {

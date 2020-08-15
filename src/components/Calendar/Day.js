@@ -9,7 +9,7 @@ const Day = ({ dayData, currentMonth }) => {
 	return (
 		<div className={`day${!isActive ? ' disabled' : ''}`} onClick={toggleModal}>
 			<h3>{dayData.date()}</h3>
-			{showModal && <ReminderModal isOpen={showModal} onClose={toggleModal} />}
+			{showModal && <ReminderModal isOpen={showModal} onClose={toggleModal} dayData={dayData} />}
 		</div>
 	);
 }
