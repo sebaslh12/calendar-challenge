@@ -53,7 +53,7 @@ export const ReminderModal = ({ isOpen, onClose, dayData, reminder, addReminder,
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
-				<h3>{modalAction} Reminder</h3>
+				<h2>{modalAction} Reminder</h2>
 				<label>
 					Name
 					<input type="text" name="name" value={values.name} onChange={handleChange} placeholder="Reminder Name" id="name" required />
