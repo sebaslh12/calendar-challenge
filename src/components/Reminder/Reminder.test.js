@@ -13,7 +13,7 @@ jest.mock('react', () => ({
 	useState: jest.fn(),
 }));
 
-const fetchMockResponse = { status: 200, daily: '[]' }
+const fetchMockResponse = { daily: [] }
 
 describe('Reminders form modal ', () => {
 	let wrapper;
@@ -37,7 +37,7 @@ describe('Reminders form modal ', () => {
 	});
 
 	it('should render', () => {
-		expect(wrapper.find('h3').text()).toBe('Create Reminder');
+		expect(wrapper.find('h2').text()).toBe('Create Reminder');
 		expect(wrapper.find('#name')).toBeTruthy();
 		expect(wrapper.find('#city')).toBeTruthy();
 		expect(wrapper.find('#time')).toBeTruthy();
