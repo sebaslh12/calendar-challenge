@@ -30,12 +30,13 @@ export const days = [
 	'Sat'
 ];
 
+export const getRemindersOfTheDay = (day, reminders) => reminders.filter(reminder => reminder.date === day.date() && reminder.month === day.month());
+
 export const reminderSorter = (reminders) => reminders.sort((a, b) => {
 	const aTime = parseInt(a.time.replace(":", ""));
 	const bTime = parseInt(b.time.replace(":", ""));
 	return aTime - bTime;
 });
-
 
 export const forecast = async (coordinates, dayData) => {
 	const today = dayjs();

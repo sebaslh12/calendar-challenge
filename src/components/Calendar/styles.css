@@ -1,10 +1,22 @@
-.month {
+.calendar {
 	text-align: center;
 }
 
-.month__title {
+.calendar__title {
+	display: inline-block;
 	font-size: 3.3rem;
-	margin: 1rem 0;
+	margin: 1rem 2rem;
+}
+
+.calendar__button {
+	cursor: pointer;
+	display: inline-block;
+	font-size: 3.3rem;
+	padding: 0 2rem;
+}
+
+.calendar__button:hover {
+	background-color: #efefef;
 }
 
 .days-container {

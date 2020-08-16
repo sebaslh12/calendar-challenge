@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import dayjs from 'dayjs';
 import Reminder from '../Reminder';
 import RemindersModal from '../Reminder/RemindersModal';
-import { reminderSorter } from '../../Utils';
+import { reminderSorter, getRemindersOfTheDay } from '../../Utils';
 
-const Day = ({ dayData, currentMonth, reminders }) => {
-	const remindersOfThisDay = reminderSorter(reminders.filter(reminder => reminder.date === dayData.date() && reminder.month === dayData.month()));
-	const isActive = (dayData.month() === currentMonth) && (dayData.date() >= dayjs().date());
+const Day = ({ dayData, reminders }) => {
+	const remindersOfThisDay = reminderSorter(getRemindersOfTheDay(dayData, reminders));
+	const isActive = (dayData.unix() >= dayjs().unix());
 	const [showModal, setShowModal] = useState(false);
 	const [showRemindersModal, setShowRemindersModal] = useState(false);
 	const toggleModal = () => setShowModal(!showModal);
