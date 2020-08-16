@@ -31,8 +31,8 @@ export const days = [
 ];
 
 export const reminderSorter = (reminders) => reminders.sort((a, b) => {
-	const aTime = parseInt(a.time.replace(":",""));
-	const bTime = parseInt(b.time.replace(":",""));
+	const aTime = parseInt(a.time.replace(":", ""));
+	const bTime = parseInt(b.time.replace(":", ""));
 	return aTime - bTime;
 });
 
@@ -43,7 +43,7 @@ export const forecast = async (coordinates, dayData) => {
 	const longitude = coordinates.split(",")[1];
 	const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,hourly,minutely&appid=a0fc5ad2a88fefb0be74a6574623c0f4`;
 
-	if(today.month() !== dayData.month() || dayData.date() - today.date() > 7) return "Unavailable";
+	if (today.month() !== dayData.month() || dayData.date() - today.date() > 7) return "Unavailable";
 
 	const response = await fetch(url, {});
 	if (response.status === 200) {
@@ -51,6 +51,7 @@ export const forecast = async (coordinates, dayData) => {
 		const forecastForDate = getDayForecast(data.daily, dayData);
 		if (forecastForDate) return forecastForDate.weather[0].main;
 	}
+	return "Unavailable";
 }
 
 const getDayForecast = (forecasts, dayData) => {

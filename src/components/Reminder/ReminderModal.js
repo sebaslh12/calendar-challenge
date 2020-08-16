@@ -7,7 +7,7 @@ import { addReminder, updateReminder, deleteReminder } from '../../store/actions
 import { forecast } from '../../Utils';
 import dayjs from 'dayjs';
 
-const ReminderModal = ({ isOpen, onClose, dayData, reminder, addReminder, updateReminder, deleteReminder }) => {
+export const ReminderModal = ({ isOpen, onClose, dayData, reminder, addReminder, updateReminder, deleteReminder }) => {
 	const [color, setColor] = useState({});
 	const [values, setValues] = useState({
 		id: reminder ? reminder.id : uuidv4(),
@@ -18,6 +18,7 @@ const ReminderModal = ({ isOpen, onClose, dayData, reminder, addReminder, update
 		month: reminder ? reminder.month : dayData.month(),
 		color: reminder ? reminder.color : '#5e72e4'
 	});
+	const [status, setStatus] = useState({ error: '', loading: false });
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -28,13 +29,15 @@ const ReminderModal = ({ isOpen, onClose, dayData, reminder, addReminder, update
 		e.preventDefault();
 		e.stopPropagation();
 		const hasConfirm = window.confirm("This action cannot be undone");
-		if(hasConfirm) deleteReminder(reminder);
+		if (hasConfirm) return deleteReminder(reminder);
 	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 		let weather;
+		if (values.name.length > 30) return setStatus({ ...status, error: 'Name too long' });
+		setStatus({ error: '', loading: true });
 		if (reminder && reminder.id) {
 			weather = reminder.city === values.city ? reminder.weather : await forecast(values.city, dayjs().month(reminder.month).date(reminder.date));
 			updateReminder({ ...values, color: color.hex, weather })
@@ -42,7 +45,7 @@ const ReminderModal = ({ isOpen, onClose, dayData, reminder, addReminder, update
 			weather = await forecast(values.city, dayData);
 			addReminder({ ...values, color: color.hex, weather });
 		}
-		onClose();
+		return onClose();
 	}
 
 	const modalAction = `${reminder ? 'Update' : 'Create'}`;
@@ -53,11 +56,11 @@ const ReminderModal = ({ isOpen, onClose, dayData, reminder, addReminder, update
 				<h3>{modalAction} Reminder</h3>
 				<label>
 					Name
-					<input type="text" name="name" value={values.name} onChange={handleChange} placeholder="Reminder Name" maxLength="30" required />
+					<input type="text" name="name" value={values.name} onChange={handleChange} placeholder="Reminder Name" id="name" required />
 				</label>
 				<label>
 					City
-					<select name="city" onChange={handleChange} required value={values.city}>
+					<select name="city" onChange={handleChange} id="city" required value={values.city}>
 						<option value="" defaultValue>Select a city</option>
 						<option value="4.707823,74.080350">Bogotá</option>
 						<option value="3.418170,-76.523839">Cali</option>
@@ -72,7 +75,7 @@ const ReminderModal = ({ isOpen, onClose, dayData, reminder, addReminder, update
 				</label>
 				<label>
 					Hour
-					<input type="time" name="time" value={values.time} onChange={handleChange} placeholder="Hour" required />
+					<input type="time" name="time" id="time" value={values.time} onChange={handleChange} placeholder="Hour" required />
 				</label>
 				<label>
 					Color:
@@ -82,7 +85,8 @@ const ReminderModal = ({ isOpen, onClose, dayData, reminder, addReminder, update
 						onChange={setColor}
 					/>
 				</label>
-				<button type="submit">{modalAction}</button>
+				{status.error && <p className="error">{status.error}</p>}
+				<button type="submit" disabled={status.loading}>{modalAction}</button>
 				{reminder && <button type="button" onClick={handleDelete}>Delete</button>}
 			</form>
 		</Modal>
