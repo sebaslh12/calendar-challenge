@@ -26,7 +26,7 @@ const Day = ({ dayData, reminders }) => {
 					</div>}
 			</div>
 			{showModal && <ReminderModal isOpen={showModal} onClose={toggleModal} dayData={dayData} />}
-			{showRemindersModal && <RemindersModal isOpen={showRemindersModal} onClose={toggleRemindersModal} reminders={reminders} />}
+			{showRemindersModal && <RemindersModal isOpen={showRemindersModal} onClose={toggleRemindersModal} reminders={reminders} day={dayData}/>}
 		</div>
 	);
 }

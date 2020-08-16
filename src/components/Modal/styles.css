@@ -6,6 +6,7 @@
 	box-shadow: 0.2rem 0.2rem 1rem rgba(0,0,0,.3);
 	margin: 8rem auto;
 	max-width: 48rem;
+	max-height: 50rem;
 	min-height: 35rem;
 	min-width: 32rem;
 	overflow: auto;
@@ -51,6 +52,13 @@
 	padding: 1rem;
 	margin: 0.5rem 0;
 	width: 100%;
+}
+
+.modal-card .error {
+	color: red;
+	font-size: 1.6rem;
+	font-weight: 500;
+	margin: 1rem 0;
 }
 
 .modal-card button {

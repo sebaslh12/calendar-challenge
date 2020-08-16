@@ -29,7 +29,10 @@ export const ReminderModal = ({ isOpen, onClose, dayData, reminder, addReminder,
 		e.preventDefault();
 		e.stopPropagation();
 		const hasConfirm = window.confirm("This action cannot be undone");
-		if (hasConfirm) return deleteReminder(reminder);
+		if (hasConfirm) {
+			deleteReminder(reminder);
+			onClose();
+		};
 	}
 
 	const handleSubmit = async (e) => {

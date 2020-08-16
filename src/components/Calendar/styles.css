@@ -94,3 +94,7 @@
 .reminders-modal {
 	margin-top: 3rem;
 }
+
+.reminders-modal .reminder {
+	margin: 1rem 0;
+}
