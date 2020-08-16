@@ -30,6 +30,34 @@ export const days = [
 	'Sat'
 ];
 
+export const daysOfPastMonth = (dayOfWeek, startingDay) => {
+	const weekBefore = [];
+	for (let daysBefore = 0; daysBefore < dayOfWeek; daysBefore++) {
+		const dayOfPreviousMonth = dayjs(startingDay).day(dayOfWeek).subtract(dayOfWeek - daysBefore, 'day');
+		weekBefore.push(dayOfPreviousMonth);
+	}
+	return weekBefore;
+}
+
+export const daysOfNextMonth = (finalDay) => {
+	const finalDayOfWeek = finalDay.day();
+	const weekAfter = [];
+	for (let daysAfter = 1; daysAfter < 7 - finalDayOfWeek; daysAfter++) {
+		const dayOfNextMonth = dayjs(finalDay).add(daysAfter, 'day');
+		weekAfter.push(dayOfNextMonth);
+	}
+	return weekAfter;
+}
+
+export const daysOfCurrentMonth = (daysOfMonth, currentMonth) => {
+	const month = [];
+	for (let day = 1; day <= daysOfMonth; day++) {
+		const currentDay = dayjs().month(currentMonth).date(day);
+		month.push(currentDay);
+	}
+	return month;
+}
+
 export const getRemindersOfTheDay = (day, reminders) => reminders.filter(reminder => reminder.date === day.date() && reminder.month === day.month());
 
 export const reminderSorter = (reminders) => reminders.sort((a, b) => {
