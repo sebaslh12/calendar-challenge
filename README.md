@@ -1,68 +1,42 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Calendar Challenge
 
-## Available Scripts
+React calendar demo which shows the reminders for each day and the forecast for the city of the reminder. Reminders can be created, updated, and deleted. These are the restrictions for this demo:
+- It doesn't have a backend so the data doesn't persist (be careful when you reload the page).
+- The days before today are disabled, it doesn't make sense to create a reminder for a day that has already passed.
+- The cities are fixed because the weather API requires the city's latituted and longitude which is something that most people doesn't know.
+- Since I'm using the free version of the weather API, I'm unable to set forecast information that are further than 7 days from today.
+- The calendar supports every single month of the current year (After December it loops back to January 2020).
 
-In the project directory, you can run:
+[You can check it out here](https://nostalgic-ride-c3ab0d.netlify.app/)
 
-### `npm start`
+## Getting started
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This project was created using CRA, if you clone this project you'll need NodeJs version 12 or higher you can download it [here](https://nodejs.org/en/). See sections below to more details about running, testing and deployment.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Installing
 
-### `npm test`
+Get into the project's folder and run: `npm i`. **This is required if you want to run, test or re-deploy this project**.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Running
 
-### `npm run build`
+Run `npm run start` this will launch your browser with app running.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Testing
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Run `npm run test`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Deployment
 
-### `npm run eject`
+The easiest way to deploy this app is to use [Netlify](https://www.netlify.com/), you'll need an account before trying to deploy the project, it has free a plan.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+If you already have an account then run `npm run build` this command will create a `build` folder and you only need to drag it to the netlify's dashboard and it will create the project and deployed.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Authors
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* [**Sebastian Lozano Herrera**](https://github.com/sebaslh12) 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Contact information: sebaslh12@gmail.com.
 
-## Learn More
+## License
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This project is licensed under the Apache 2.0 License - see the [LICENSE.md](LICENSE.md) file for details.
